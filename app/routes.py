@@ -105,3 +105,26 @@ def delete_album(album_id):
     db.session.commit()
     flash('Альбом видалено.', 'success')
     return redirect(url_for('main.index'))
+
+# ... (весь ваш інший код в routes.py) ...
+
+
+# --- СЕКРЕТНИЙ МАРШРУТ ДЛЯ НАЛАШТУВАННЯ НА RENDER ---
+# !!! ОБОВ'ЯЗКОВО ВИДАЛІТЬ ЦЕ ПІСЛЯ ПЕРШОГО ЗАПУСКУ !!!
+@main.route('/super-secret-setup-12345')
+def super_secret_setup():
+    try:
+        db.create_all()  # Створюємо таблиці
+
+        # Перевіряємо, чи адмін вже існує
+        if not User.query.filter_by(username='admin').first():
+            admin = User(username='admin', password='password123')
+            db.session.add(admin)
+            db.session.commit()
+            return "<h1>Успіх!</h1><p>Базу даних створено, адміна 'admin' з паролем 'password123' додано.</p>"
+        else:
+            return "<h1>Все вже було налаштовано.</h1><p>Адмін 'admin' вже існує.</p>"
+
+    except Exception as e:
+        return f"<h1>Помилка:</h1><p>{str(e)}</p>"
+# --- КІНЕЦЬ СЕКРЕТНОГО МАРШРУТУ ---
