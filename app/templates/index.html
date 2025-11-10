@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Головна{% endblock %}
+{% block content %}
+    <h1>Вітаємо на сайті нашого гурту!</h1>
+    <p>Це головна сторінка.</p>
+
+    <h2>Наші Альбоми</h2>
+    <div class="list-group">
+    {% for album in albums %}
+        <a href="{{ url_for('main.album', album_id=album.id) }}" class="list-group-item list-group-item-action">
+            {{ album.title }} ({{ album.release_year }})
+        </a>
+    {% else %}
+        <p>Альбомів ще не додано.</p>
+    {% endfor %}
+    </div>
+{% endblock %}

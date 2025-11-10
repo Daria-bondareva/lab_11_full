@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ album.title }}{% endblock %}
+{% block content %}
+    <h1>{{ album.title }}</h1>
+    <h3 class="text-muted">Рік випуску: {{ album.release_year }}</h3>
+    <p>{{ album.description }}</p>
+
+    {% if current_user.is_authenticated %}
+        <hr>
+        <a href="{{ url_for('main.edit_album', album_id=album.id) }}" class="btn btn-primary">Редагувати</a>
+        <form action="{{ url_for('main.delete_album', album_id=album.id) }}" method="POST" style="display:inline;">
+            <input type="submit" value="Видалити" class="btn btn-danger" onclick="return confirm('Ви впевнені?');">
+        </form>
+    {% endif %}
+{% endblock %}
