@@ -12,3 +12,4 @@ class Album(db.Model):
     title = db.Column(db.String(150), nullable=False)
     release_year = db.Column(db.Integer)
     description = db.Column(db.Text)
+    cover_url = db.Column(db.String(500))

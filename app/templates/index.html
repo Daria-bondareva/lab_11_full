@@ -7,9 +7,18 @@
     <h2>Дискографія</h2>
     <div class="list-group">
     {% for album in albums %}
-        <a href="{{ url_for('main.album', album_id=album.id) }}" class="list-group-item list-group-item-action">
-            {{ album.title }} ({{ album.release_year }})
-        </a>
+        <a href="{{ url_for('main.album', album_id=album.id) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h5 class="mb-1">{{ album.title }}</h5>
+                    <small class="text-muted">{{ album.release_year }}</small>
+                </div>
+
+                {% if album.cover_url %}
+                    <img src="{{ album.cover_url }}" alt="Cover" style="height: 60px; width: 60px; object-fit: cover; border-radius: 5px;">
+                {% endif %}
+
+            </a>
     {% else %}
         <p>Альбомів ще не додано.</p>
     {% endfor %}

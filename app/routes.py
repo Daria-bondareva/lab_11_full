@@ -105,3 +105,16 @@ def delete_album(album_id):
     db.session.commit()
     flash('Альбом видалено.', 'success')
     return redirect(url_for('main.index'))
+
+
+@main.route('/reset-db-123')
+def reset_db():
+    db.drop_all()   # Видаляє все
+    db.create_all() # Створює нову структуру з cover_url
+
+    # Створюємо адміна знову
+    if not User.query.filter_by(username='admin').first():
+        user = User(username='admin', password='password123')
+        db.session.add(user)
+        db.session.commit()
+    return "Базу оновлено! Можна додавати альбоми з картинками."

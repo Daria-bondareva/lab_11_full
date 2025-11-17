@@ -11,4 +11,5 @@ class AlbumForm(FlaskForm):
     title = StringField('Назва альбому', validators=[DataRequired(), Length(min=2, max=150)])
     release_year = IntegerField('Рік випуску')
     description = TextAreaField('Опис')
+    cover_url = StringField('Посилання на картинку (URL)')
     submit = SubmitField('Зберегти')
