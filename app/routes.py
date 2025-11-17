@@ -72,7 +72,8 @@ def add_album():
     if form.validate_on_submit():
         new_album = Album(title=form.title.data,
                           release_year=form.release_year.data,
-                          description=form.description.data)
+                          description=form.description.data,
+                          cover_url=form.cover_url.data)
         db.session.add(new_album)
         db.session.commit()
         flash('Альбом успішно додано!', 'success')
@@ -90,6 +91,7 @@ def edit_album(album_id):
         album.title = form.title.data
         album.release_year = form.release_year.data
         album.description = form.description.data
+        album.cover_url = form.cover_url.data
         db.session.commit()
         flash('Альбом оновлено!', 'success')
         return redirect(url_for('main.album', album_id=album.id))
